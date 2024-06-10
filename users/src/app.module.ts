@@ -1,12 +1,19 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { UserModule } from './user/user.module';
-import { VeciMongoModule } from './shared/veci.mongo.module';
+import { VeciMongoModule } from 'src/shared/veci.mongo.module'
+import { ConfigModule } from '@nestjs/config';
+import { UserModule } from './modules/user.module';
+import { ProductModule } from './modules/product.module';
+import { NeighborhoodModule } from './modules/neighborhood.module';
 
 @Module({
-  imports: [UserModule, VeciMongoModule],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    UserModule,
+    ProductModule,
+    NeighborhoodModule,
+    VeciMongoModule
+  ],
 })
 export class AppModule {}

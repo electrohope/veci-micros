@@ -1,16 +1,12 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from '../user/entities/user.entity'; 
+import { MongooseModule } from '@nestjs/mongoose';
+import { User, UserSchema } from '../schemas/user.schema';
+import { Neighborhood, NeighborhoodSchema } from '../schemas/neighborhood.schema';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({ // No async or ConfigService injection
-      type: 'mongodb',
-      url: process.env.MONGODB_URI || 'mongodb+srv://maxcampos:m123c456@veci-dev-cluster.46kwjlg.mongodb.net/?retryWrites=true&w=majority&appName=veci-dev-cluster', // Use env variable or default
-      entities: [User], // Add other entities here if needed
-      synchronize: true, // Set to false in production
-    }),
+    MongooseModule.forRoot('mongodb+srv://maxcampos:Test1234@veci-dev-clust.khwsccf.mongodb.net/?retryWrites=true&w=majority&appName=veci-dev-clust')
   ],
-  exports: [TypeOrmModule], // Export for other modules to use
+  exports: [MongooseModule],
 })
 export class VeciMongoModule {}
